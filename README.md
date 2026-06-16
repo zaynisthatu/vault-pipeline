@@ -55,34 +55,34 @@ VAULT is a self-built local archive viewer for Instagram and TikTok content — 
 
 ```mermaid
 flowchart TD
-    subgraph HOST ["Host — WSL Ubuntu"]
-        SRC[Source Code\nNode · React · SQLite]
-        MEDIA[hf-data/\n10k+ media files]
-        IDX[Indexer\nnpx tsx src/indexer.ts]
-        DB[(vault.db\n1,549 posts · Linux paths)]
+    subgraph HOST ["Host - WSL Ubuntu"]
+        SRC["Source Code - Node React SQLite"]
+        MEDIA["hf-data - 10k+ media files"]
+        IDX["Indexer - npx tsx src/indexer.ts"]
+        DB[("vault.db - 1549 posts - Linux paths")]
         MEDIA --> IDX --> DB
     end
 
     subgraph BUILD ["Multi-Stage Docker Build"]
-        B1[Stage 1 — Builder\nnode:20-slim + build tools\nnpm ci + vite build + esbuild]
-        B2[Stage 2 — Production\nnode:20-slim\nnpm ci --omit=dev\ncopy dist/ only]
+        B1["Stage 1 - Builder - node:20-slim - npm ci - vite build - esbuild"]
+        B2["Stage 2 - Production - node:20-slim - npm ci omit-dev - copy dist only"]
         B1 --> B2
     end
 
     SRC --> BUILD
-    B2 --> IMG[Image vault:v1]
-    IMG --> GHCR[GHCR\nghcr.io/zaynisthatu/vault-pipeline:v1]
+    B2 --> IMG["Image vault:v1"]
+    IMG --> GHCR["GHCR - ghcr.io/zaynisthatu/vault-pipeline:v1"]
 
-    subgraph CONTAINER ["Running Container — port 7860"]
-        APP[Express + React\nStateless]
-        APP --> MDB[/app/vault.db]
-        APP --> MMEDIA[media :ro]
+    subgraph CONTAINER ["Running Container - port 7860"]
+        APP["Express + React - Stateless"]
+        APP --> MDB["/app/vault.db"]
+        APP --> MMEDIA["media read-only"]
     end
 
     GHCR -->|docker run| CONTAINER
     DB -.->|volume mount| MDB
     MEDIA -.->|volume mount| MMEDIA
-    CONTAINER --> LIVE[✅ localhost:7860\n1,549 posts · videos · thumbnails]
+    CONTAINER --> LIVE["localhost:7860 - 1549 posts - videos - thumbnails"]
 ```
 
 ---
@@ -90,20 +90,19 @@ flowchart TD
 ## Screenshots
 
 ### App — Live at localhost:7860
-<!-- TODO: Add screenshot of app running with posts/videos visible -->
 ![App Running](docs/images/app-live.png)
 
 ### Container Running
-<!-- TODO: Add screenshot of docker ps output -->
 ![Docker PS](docs/images/docker-ps.png)
 
 ### GHCR — Image Published
-<!-- TODO: Add screenshot of GHCR package page -->
 ![GHCR](docs/images/ghcr-published.png)
 
 ### Docker Build — Success
-<!-- TODO: Add screenshot of docker build 17/17 FINISHED output -->
 ![Docker Build](docs/images/docker-build.png)
+
+### Indexer Output
+![Indexer Output](docs/images/indexer-output.png)
 
 ---
 
