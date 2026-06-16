@@ -275,7 +275,7 @@ npm install
 npx tsx src/indexer.ts --folder "/your/linux/path/to/media"
 ```
 
-![Indexer Output](docs/images/indexer-output.png)
+![Indexer Output](images/indexer-output.png)
 
 ```bash
 # Step 2 — Run container
