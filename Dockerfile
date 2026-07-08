@@ -26,6 +26,7 @@ RUN npm ci --omit=dev
 # Copy generated builds from builder stage
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/index.html ./index.html
+RUN touch /app/vault.db
 
 # MAGIC FIX: Dockerfile ke andar hi ek small package.json dist folder mein daal rahe hain
 # Jo Node.js ko bataye ke dist ke andar saari files CommonJS (CJS) hain. 
