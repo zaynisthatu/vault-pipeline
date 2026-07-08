@@ -25,7 +25,7 @@ function getPostFiles(folderPath: string, postId: string): string[] {
 async function startServer() {
   const app  = express();
   const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
-
+  app.get("/healthz", (_req, res) => res.status(200).json({ status: "ok" }));
   app.use("/api", (req, res, next) => {
     if (!fs.existsSync(DB_FILE)) return res.status(503).json({ error: "Run the indexer first." });
     next();
