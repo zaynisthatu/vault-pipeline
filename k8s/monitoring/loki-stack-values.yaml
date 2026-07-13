@@ -23,6 +23,11 @@ promtail:
               - container
               - app
 
+grafana:
+  sidecar:
+    datasources:
+      enabled: false
+
 resources:
   requests:
     cpu: 50m
