@@ -30,7 +30,7 @@ spec:
           volumeMounts:
             - name: vault-db
               mountPath: /app/vault.db
-              subPath: vault.db
+              
             - name: vault-data
               mountPath: /app/hf-data
           readinessProbe:
