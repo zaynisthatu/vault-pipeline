@@ -295,7 +295,10 @@ export default function App(){
 
       {/* ── Header ── */}
       <header className="h-[56px] shrink-0 bg-[#0A0A0B] border-b border-[#27272A] flex items-center px-5 gap-3 z-50">
-        <div className="font-mono text-xl font-bold tracking-[4px] text-[#10B981]">VAULT</div>
+        <div className="flex items-center gap-2">
+          <div className="font-mono text-xl font-bold tracking-[4px] text-[#10B981]">VAULT</div>
+          <span className="font-mono text-[9px] font-bold px-1.5 py-0.5 rounded bg-[#1D1D21] text-[#71717A] tracking-wider">v2 · Stage 4</span>
+        </div>
         <div className="flex-1 max-w-xs">
           <input type="text" className="w-full bg-[#18181B] border border-[#27272A] rounded-md px-3 py-1.5 text-[13px] outline-none focus:border-[#71717A] placeholder:text-[#A1A1AA] text-[#D4D4D8]" placeholder="Search…" value={search} onChange={e=>setSearch(e.target.value)}/>
         </div>
