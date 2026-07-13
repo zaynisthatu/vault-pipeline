@@ -23,7 +23,7 @@ spec:
       terminationGracePeriodSeconds: 20
       containers:
         - name: vault
-          image: ghcr.io/zaynisthatu/vault-pipeline:v3
+          image: ghcr.io/zaynisthatu/vault-pipeline:v4
           ports:
             - containerPort: 7860
           resources:
