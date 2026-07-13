@@ -4,6 +4,7 @@ import fs from "fs";
 import Database from "better-sqlite3";
 import { createServer as createViteServer } from "vite";
 import { getAllFilesRecursive } from "./src/fileUtils";
+import client from "prom-client";
 
 const DB_FILE  = "vault.db";
 const PROGRESS_FILE = "scan_progress.json";
@@ -28,6 +29,46 @@ async function startServer() {
 
   // HEALTHZ — must be FIRST before all other routes
   app.get("/healthz", (_req, res) => res.status(200).json({ status: "ok" }));
+
+  // ── PROMETHEUS METRICS (Stage 5) ────────────────────────────
+  const register = new client.Registry();
+  client.collectDefaultMetrics({ register });
+
+  const httpRequestsTotal = new client.Counter({
+    name: "http_requests_total",
+    help: "Total HTTP requests",
+    labelNames: ["method", "route", "status_code"],
+    registers: [register],
+  });
+
+  const httpRequestDuration = new client.Histogram({
+    name: "http_request_duration_seconds",
+    help: "HTTP request duration in seconds",
+    labelNames: ["method", "route", "status_code"],
+    buckets: [0.01, 0.05, 0.1, 0.3, 0.5, 1, 2, 5],
+    registers: [register],
+  });
+
+  app.use((req, res, next) => {
+    const start = process.hrtime();
+    res.on("finish", () => {
+      const [s, ns] = process.hrtime(start);
+      const durationSec = s + ns / 1e9;
+      const route = req.route?.path || req.path;
+
+      httpRequestsTotal.inc({ method: req.method, route, status_code: String(res.statusCode) });
+      httpRequestDuration.observe(
+        { method: req.method, route, status_code: String(res.statusCode) },
+        durationSec
+      );
+    });
+    next();
+  });
+
+  app.get("/metrics", async (_req, res) => {
+    res.set("Content-Type", register.contentType);
+    res.end(await register.metrics());
+  });
 
   app.use("/api", (req, res, next) => {
 
