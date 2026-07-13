@@ -282,8 +282,32 @@ async function startServer() {
     app.get("*", (_, res) => res.sendFile(path.join(dist, "index.html")));
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
+  const server = app.listen(PORT, "0.0.0.0", () => {
     console.log(`\n Server running → http://localhost:${PORT}\n`);
+  });
+
+  // ── GRACEFUL SHUTDOWN (SIGTERM) ─────────────────────────────
+  // Required for zero-downtime rolling updates: stops accepting new
+  // connections, lets in-flight requests finish, then exits cleanly.
+  process.on("SIGTERM", () => {
+    console.log("SIGTERM received — draining connections...");
+
+    server.close((err) => {
+      if (err) {
+        console.error("Error during shutdown:", err);
+        process.exit(1);
+      }
+      console.log("All connections closed, exiting.");
+      process.exit(0);
+    });
+
+    // Safety net: if some connection never closes on its own,
+    // force exit before Kubernetes sends SIGKILL.
+    // Must stay below terminationGracePeriodSeconds in deployment.yaml.
+    setTimeout(() => {
+      console.error("Forced shutdown after timeout — a connection did not close in time.");
+      process.exit(1);
+    }, 9000);
   });
 }
 
