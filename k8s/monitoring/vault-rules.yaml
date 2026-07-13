@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: vault-rules
+  namespace: vault
+  labels:
+    release: kube-prometheus-stack   # must match Helm release name so Prometheus Operator picks it up
+spec:
+  groups:
+    - name: vault.rules
+      rules:
+        - alert: VaultHighErrorRate
+          expr: |
+            sum(rate(http_requests_total{status_code=~"5..", namespace="vault"}[5m]))
+            /
+            sum(rate(http_requests_total{namespace="vault"}[5m])) > 0.05
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "VAULT 5xx error rate above 5%"
+            description: "Error rate has stayed above 5% for 2 minutes."
+
+        - alert: VaultPodDown
+          expr: |
+            sum(up{job="vault-service", namespace="vault"}) < 2
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "VAULT running below desired replica count"
+            description: "Fewer than 2 vault pods have been up for 1 minute."
