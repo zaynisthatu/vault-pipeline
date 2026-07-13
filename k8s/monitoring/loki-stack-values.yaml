@@ -17,11 +17,10 @@ promtail:
       pipelineStages:
         - cri: {}
         - labelallow:
-            labels:
-              - namespace
-              - pod
-              - container
-              - app
+            - namespace
+            - pod
+            - container
+            - app
   resources:
     requests:
       cpu: 50m
