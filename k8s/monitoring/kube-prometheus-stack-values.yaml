@@ -1,0 +1,44 @@
+grafana:
+  enabled: true
+  adminPassword: "REPLACE_ME_BEFORE_DEPLOY"
+  persistence:
+    enabled: true
+    size: 1Gi
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki-stack.monitoring.svc.cluster.local:3100
+      access: proxy
+      isDefault: false
+
+prometheus:
+  prometheusSpec:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+    retention: 3d
+    serviceMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    ruleSelector: {}
+
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 64Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
+
+nodeExporter:
+  enabled: true
+
+kubeStateMetrics:
+  enabled: true

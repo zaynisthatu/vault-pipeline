@@ -9,6 +9,10 @@ import client from "prom-client";
 const DB_FILE  = "vault.db";
 const PROGRESS_FILE = "scan_progress.json";
 
+function log(level: "info" | "error" | "warn", msg: string, meta: Record<string, unknown> = {}) {
+  console.log(JSON.stringify({ level, msg, timestamp: new Date().toISOString(), ...meta }));
+}
+
 export function getDb() { return new Database(DB_FILE, { readonly: true }); }
 
 function rowToDict(row: any) {
@@ -93,7 +97,10 @@ async function startServer() {
       };
       db.close();
       res.json(stats);
-    } catch (err: any) { res.status(500).json({ error: err.message }); }
+    } catch (err: any) {
+      log("error", "db query failed", { route: "/api/stats", error: err.message });
+      res.status(500).json({ error: err.message });
+    }
   });
 
   // ── YEARS (for filter) ─────────────────────────────────────
@@ -165,7 +172,10 @@ async function startServer() {
       const rows    = db.prepare(`SELECT * FROM posts ${where} ORDER BY ${sortCol} LIMIT ? OFFSET ?`).all(...params, limit, offset);
       db.close();
       res.json({ posts: rows.map(rowToDict), total, page, pages: Math.ceil(total / limit) });
-    } catch (err: any) { res.status(500).json({ error: err.message }); }
+    } catch (err: any) {
+      log("error", "db query failed", { route: "/api/posts", error: err.message });
+      res.status(500).json({ error: err.message });
+    }
   });
 
   // ── SCAN STATUS (for progress bar in UI) ───────────────────
@@ -326,21 +336,21 @@ async function startServer() {
   }
 
   const server = app.listen(PORT, "0.0.0.0", () => {
-    console.log(`\n Server running → http://localhost:${PORT}\n`);
+    log("info", "server started", { port: PORT });
   });
 
   // ── GRACEFUL SHUTDOWN (SIGTERM) ─────────────────────────────
   // Required for zero-downtime rolling updates: stops accepting new
   // connections, lets in-flight requests finish, then exits cleanly.
   process.on("SIGTERM", () => {
-    console.log("SIGTERM received — draining connections...");
+    log("info", "SIGTERM received, draining connections");
 
     server.close((err) => {
       if (err) {
-        console.error("Error during shutdown:", err);
+        log("error", "error during shutdown", { error: err.message });
         process.exit(1);
       }
-      console.log("All connections closed, exiting.");
+      log("info", "all connections closed, exiting");
       process.exit(0);
     });
 
@@ -348,7 +358,7 @@ async function startServer() {
     // force exit before Kubernetes sends SIGKILL.
     // Must stay below terminationGracePeriodSeconds in deployment.yaml.
     setTimeout(() => {
-      console.error("Forced shutdown after timeout — a connection did not close in time.");
+      log("error", "forced shutdown after timeout, a connection did not close in time");
       process.exit(1);
     }, 9000);
   });
