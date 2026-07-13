@@ -27,6 +27,12 @@ spec:
             limits:
               cpu: "500m"
               memory: "512Mi"
+          volumeMounts:
+            - name: vault-db
+              mountPath: /app/vault.db
+              subPath: vault.db
+            - name: vault-data
+              mountPath: /app/hf-data
           readinessProbe:
             httpGet:
               path: /healthz
@@ -41,3 +47,12 @@ spec:
             initialDelaySeconds: 20
             periodSeconds: 10
             failureThreshold: 3
+      volumes:
+        - name: vault-db
+          hostPath:
+            path: /home/user/vault.db
+            type: File
+        - name: vault-data
+          hostPath:
+            path: /home/user/hf-data
+            type: Directory
