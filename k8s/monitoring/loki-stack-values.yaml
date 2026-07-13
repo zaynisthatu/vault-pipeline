@@ -22,16 +22,15 @@ promtail:
               - pod
               - container
               - app
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 512Mi
 
 grafana:
   sidecar:
     datasources:
       enabled: false
-
-resources:
-  requests:
-    cpu: 50m
-    memory: 128Mi
-  limits:
-    cpu: 200m
-    memory: 256Mi
