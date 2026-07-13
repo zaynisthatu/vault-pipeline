@@ -27,10 +27,9 @@ async function startServer() {
   const app  = express();
   const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
-  // HEALTHZ — must be FIRST before all other routes
-  app.get("/healthz", (_req, res) => res.status(200).json({ status: "ok" }));
-
-  // ── PROMETHEUS METRICS (Stage 5) ────────────────────────────
+  // ── PROMETHEUS METRICS (Stage 5) — must be registered before ALL routes,
+  // including /healthz, or requests to routes defined earlier in the file
+  // never pass through this middleware and never get counted.
   const register = new client.Registry();
   client.collectDefaultMetrics({ register });
 
@@ -69,6 +68,9 @@ async function startServer() {
     res.set("Content-Type", register.contentType);
     res.end(await register.metrics());
   });
+
+  // HEALTHZ — must be FIRST among functional routes (after metrics middleware above)
+  app.get("/healthz", (_req, res) => res.status(200).json({ status: "ok" }));
 
   app.use("/api", (req, res, next) => {
 
