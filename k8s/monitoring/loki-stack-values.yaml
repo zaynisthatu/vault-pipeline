@@ -1,0 +1,32 @@
+loki:
+  enabled: true
+  persistence:
+    enabled: true
+    size: 2Gi
+  config:
+    limits_config:
+      ingestion_rate_mb: 8
+      ingestion_burst_size_mb: 16
+
+promtail:
+  enabled: true
+  config:
+    clients:
+      - url: http://loki-stack:3100/loki/api/v1/push
+    snippets:
+      pipelineStages:
+        - cri: {}
+        - labelallow:
+            labels:
+              - namespace
+              - pod
+              - container
+              - app
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
