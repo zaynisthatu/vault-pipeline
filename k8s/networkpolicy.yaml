@@ -15,13 +15,23 @@ spec:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: kube-system
-  egress:
-    - to:
+    # Added Stage 5 — allow Prometheus (monitoring namespace) to scrape /metrics on port 7860.
+    # Without this, ServiceMonitor targets show DOWN with "connection refused" even though
+    # the app itself serves /metrics correctly — NetworkPolicy default-deny blocks it silently.
+    - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: kube-system
+              kubernetes.io/metadata.name: monitoring
       ports:
+        - protocol: TCP
+          port: 7860
+  egress:
+    - ports:
         - port: 53
           protocol: UDP
         - port: 53
           protocol: TCP
+      to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
