@@ -139,6 +139,7 @@ flowchart TD
 ## Documentation
 
 - [Stage 1 — Containerization](docs/stage-1-containerization.md)
+- [Stage 2 — Kubernetes Orchestration](docs/stage-2-kubernetes.md)
 
 ---
 
