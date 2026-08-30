@@ -15,9 +15,12 @@ A full-stack social media archive viewer containerized and deployed through a pr
 
 - ✅ Multi-stage Docker build on `node:20-slim` — native C++ module (`better-sqlite3`) compiled at build time
 - ✅ Stateless container architecture — DB and media externalized as volumes (PersistentVolumeClaim-ready)
-- ✅ Image published to GHCR — public, no `imagePullSecrets` required
+- ✅ Image published to GHCR
 - ✅ ESM/CJS interop resolved — esbuild CJS output with `"type":"module"` package
-- ✅ Runtime-validated — 1,549 posts, video streaming, thumbnails live at `:7860`
+- ✅ 3-node k3d Kubernetes cluster — 2 replicas behind a Traefik Ingress at `vault.local`
+- ✅ Health checks decoupled from application state — dedicated `/healthz` probe, no CrashLoopBackOff
+- ✅ NetworkPolicy and PodDisruptionBudget (`minAvailable: 1`) applied
+- ✅ Runtime-validated — video streaming, thumbnails, and post search live under load
 
 ---
 
