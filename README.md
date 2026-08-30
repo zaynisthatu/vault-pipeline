@@ -143,6 +143,15 @@ flowchart TD
 
 ---
 
+## Known Gaps
+
+- **NetworkPolicy is written correctly but not enforced under Flannel** (k3d's default CNI) — needs a CNI swap to Calico/Cilium, tracked for the cloud-migration stage.
+- **`vault.db` is not durable across pod restarts** — currently injected via `kubectl cp` for demo/verification; needs a PersistentVolumeClaim, tracked for a dedicated storage stage.
+
+Documented here rather than worked around, so the pipeline's actual state stays accurate at every stage.
+
+---
+
 ## License
 
 MIT
