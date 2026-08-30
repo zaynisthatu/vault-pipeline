@@ -19,7 +19,7 @@ flowchart TD
     end
 
     D --> E["Image vault:v1"]
-    E --> F["GHCR - ghcr.io/zaynisthatu/vault-pipeline:v1"]
+    E --> F["GHCR - ghcr.io/zaynisthatu/vault-pipeline:latest"]
 
     subgraph HOST ["Host - WSL Ubuntu"]
         G["hf-data - 10k+ media files"] --> H["npx tsx src/indexer.ts --folder /mnt/d/.../hf-data"]
@@ -282,7 +282,7 @@ npx tsx src/indexer.ts --folder "/your/linux/path/to/media"
 docker run -p 7860:7860 -e PORT=7860 \
   -v "/path/to/vault.db:/app/vault.db" \
   -v "/your/linux/path/to/media:/your/linux/path/to/media:ro" \
-  ghcr.io/zaynisthatu/vault-pipeline:v1
+  ghcr.io/zaynisthatu/vault-pipeline:latest
 
 # Step 3 — Open
 # http://localhost:7860
