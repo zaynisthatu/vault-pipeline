@@ -1,6 +1,9 @@
 grafana:
   enabled: true
-  adminPassword: "changeme-before-commit"
+  admin:
+    existingSecret: "grafana-admin-credentials"  # kubectl create secret generic grafana-admin-credentials --from-literal=admin-user=admin --from-literal=admin-password=<your-password> -n monitoring
+    userKey: admin-user
+    passwordKey: admin-password
   persistence:
     enabled: true
     size: 1Gi
