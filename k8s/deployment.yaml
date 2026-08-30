@@ -59,9 +59,9 @@ spec:
       volumes:
         - name: vault-db
           hostPath:
-            path: /home/inr/vault.db
+            path: /opt/vault-data/vault.db
             type: File
         - name: vault-data
           hostPath:
-            path: /home/inr/hf-data
+            path: /opt/vault-data/hf-data
             type: Directory
