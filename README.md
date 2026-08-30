@@ -49,7 +49,7 @@ curl http://vault.local/healthz
 
 ## What Is VAULT?
 
-VAULT is a self-built local archive viewer for Instagram and TikTok content — 1,549 posts, full video streaming, thumbnails, metadata search.
+VAULT is a self-built local archive viewer for Instagram and TikTok content — full video streaming, thumbnails, metadata search.
 
 | Layer | Technology |
 |-------|-----------|
@@ -58,6 +58,7 @@ VAULT is a self-built local archive viewer for Instagram and TikTok content — 
 | Database | SQLite via `better-sqlite3` (native C++ addon) |
 | Bundler | esbuild (server) + Vite (frontend) |
 | Registry | GHCR — `ghcr.io/zaynisthatu/vault-pipeline` |
+| Orchestration | k3d (3-node) — Traefik Ingress, NetworkPolicy, PodDisruptionBudget |
 
 ---
 
