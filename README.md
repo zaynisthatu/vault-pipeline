@@ -30,13 +30,19 @@ A full-stack social media archive viewer containerized and deployed through a pr
 # 1. Index your media (one-time, run on host/WSL)
 npx tsx src/indexer.ts --folder "/your/linux/path/to/media"
 
-# 2. Run
+# 2a. Run standalone (Stage 1)
 docker run -p 7860:7860 -e PORT=7860 \
   -v "/path/to/vault.db:/app/vault.db" \
   -v "/your/media:/your/media:ro" \
   ghcr.io/zaynisthatu/vault-pipeline:latest
 
-# 3. Open http://localhost:7860
+# 2b. Run on Kubernetes (Stage 2)
+kubectl apply -f k8s/
+kubectl get pods -n vault
+# add "127.0.0.1  vault.local" to /etc/hosts, then:
+curl http://vault.local/healthz
+
+# 3. Open http://localhost:7860 (standalone) or http://vault.local (k8s)
 ```
 
 ---
