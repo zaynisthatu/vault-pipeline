@@ -30,7 +30,7 @@ npx tsx src/indexer.ts --folder "/your/linux/path/to/media"
 docker run -p 7860:7860 -e PORT=7860 \
   -v "/path/to/vault.db:/app/vault.db" \
   -v "/your/media:/your/media:ro" \
-  ghcr.io/zaynisthatu/vault-pipeline:v1
+  ghcr.io/zaynisthatu/vault-pipeline:latest
 
 # 3. Open http://localhost:7860
 ```
@@ -71,7 +71,7 @@ flowchart TD
 
     SRC --> BUILD
     B2 --> IMG["Image vault:v1"]
-    IMG --> GHCR["GHCR - ghcr.io/zaynisthatu/vault-pipeline:v1"]
+    IMG --> GHCR["GHCR - ghcr.io/zaynisthatu/vault-pipeline:latest"]
 
     subgraph CONTAINER ["Running Container - port 7860"]
         APP["Express + React - Stateless"]
