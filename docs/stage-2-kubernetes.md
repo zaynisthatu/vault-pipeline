@@ -37,7 +37,34 @@ flowchart TD
 
 ## Engineering Challenges & Resolutions
 
-### Challenge 1 — Readiness probe crash loop
+### Challenge 1 — `kubectl create secret` fails when split across lines
+
+```
+error: either --from-file or the combination of --docker-username, --docker-password and --docker-server is required
+--namespace: command not found
+--docker-server=ghcr.io: command not found
+```
+
+**Root cause:** the command was typed with trailing `\` line continuations; the shell in this session split it into several separate commands instead of treating it as one multi-line command, so every flag after the first line ran as its own (invalid) command.
+
+**Resolution:** re-ran the entire `kubectl create secret docker-registry` command as a single line. No content changed — purely a shell-formatting fix.
+
+---
+
+### Challenge 2 — `git clone` fails inside a Windows-mounted WSL path
+
+```
+error: chmod on /mnt/c/Users/user/vault-pipeline/.git/config.lock failed: Operation not permitted
+fatal: could not set 'core.filemode' to 'false'
+```
+
+**Root cause:** the clone was attempted inside `/mnt/c/...` — a Windows NTFS drive mounted into WSL. WSL cannot set POSIX file permissions (`chmod`) on an NTFS filesystem, and Git needs to during clone.
+
+**Resolution:** cloned into the WSL-native home directory (`~/vault-pipeline`) instead, where permission bits behave normally. Production equivalent: this is purely a local-dev environment quirk — has no cloud analog, but is worth documenting since it recurred later in Stage 3 as a source of directory confusion.
+
+---
+
+### Challenge 3 — Readiness probe crash loop
 
 ```
 NAME                          READY   STATUS             RESTARTS   AGE
@@ -74,7 +101,7 @@ readinessProbe:
 
 ---
 
-### Challenge 2 — `ImagePullBackOff` on every pod
+### Challenge 4 — `ImagePullBackOff` on every pod
 
 ```
 NAME                     READY   STATUS             
@@ -95,7 +122,7 @@ kubectl create secret docker-registry ghcr-secret \
 
 ---
 
-### Challenge 3 — `vault.local` not resolving
+### Challenge 5 — `vault.local` not resolving
 
 Traefik Ingress was configured and healthy, but the browser couldn't resolve the host at all — the request never reached the cluster.
 
@@ -107,7 +134,7 @@ Production equivalent: Route53 / Cloud DNS pointing at the load balancer — the
 
 ---
 
-### Challenge 4 — NetworkPolicy accepted but not enforced
+### Challenge 6 — NetworkPolicy accepted but not enforced
 
 ```mermaid
 flowchart TD
@@ -123,7 +150,7 @@ flowchart TD
 
 ---
 
-### Challenge 5 — No persistent storage for `vault.db`
+### Challenge 7 — No persistent storage for `vault.db`
 
 The database and media are external to the image by design (Stage 1 decision). On Kubernetes, that data doesn't exist inside a pod until something puts it there, and a pod restart wipes an `emptyDir`.
 
