@@ -153,15 +153,37 @@ flowchart TD
 
 ---
 
-### Challenge 7 — No persistent storage for `vault.db`
+### Challenge 7 — Direct `scp` from the Windows PC to the VM refused
+
+```
+ssh: connect to host 192.168.100.50 port 22: Connection refused
+C:\Windows\System32\OpenSSH\scp.exe: Connection closed
+```
+
+**Root cause:** attempted to `scp` the media dataset (`hf-data`) straight from the Windows PC's PowerShell to the ephemeral VM as if it were a normal SSH-reachable host. In this two-machine setup (Windows PC for code/push, separate VM for build/deploy), the VM wasn't reachable that way.
+
+**Resolution:** abandoned the direct-SCP path. Since the VM's own WSL session already has the Windows D: drive mounted at `/mnt/d/...`, copied the data locally within the VM (`cp -r /mnt/d/extraction/hf- /home/user/hf-data`), then loaded it into the running container via `docker run` against the already-published GHCR image.
+
+---
+
+### Challenge 8 — No persistent storage for `vault.db` / `hf-data`
 
 The database and media are external to the image by design (Stage 1 decision). On Kubernetes, that data doesn't exist inside a pod until something puts it there, and a pod restart wipes an `emptyDir`.
 
+**First attempt failed:**
+```bash
+kubectl cp /home/user/hf-data vault/<pod>:/home/user/hf-data
+tar: /home/user: Cannot open: No such file or directory
+tar: Error is not recoverable: exiting now
+```
+**Root cause:** the destination path assumed the container had a `/home/user` directory (the VM's own home path) — but the container's actual working directory is `/app`.
+
 **Resolution (temporary, for this stage):**
 ```bash
-kubectl cp vault.db vault/vault-6b9585f4dc-m5nlz:/app/vault.db
+kubectl cp /home/user/vault.db vault/<pod>:/app/vault.db
+kubectl cp /home/user/hf-data vault/<pod>:/app/hf-data
 ```
-Used to inject the database for demo/verification purposes. Documented explicitly as non-durable — the correct fix is a PersistentVolumeClaim, scoped to a later storage-focused stage rather than solved ad hoc here.
+Used to inject the database and media for demo/verification purposes. Documented explicitly as non-durable — the correct fix is a PersistentVolumeClaim, scoped to a later storage-focused stage rather than solved ad hoc here.
 
 ---
 
