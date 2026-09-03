@@ -8,6 +8,8 @@
 
 ## Architecture
 
+![Stage 2 request flow — browser through Traefik Ingress to a vault pod](images/stage2-architecture-infographic.svg)
+
 ```mermaid
 flowchart TD
     Browser -->|HTTP :80| LB[k3d Load Balancer]
@@ -218,6 +220,8 @@ Used to inject the database and media for demo/verification purposes. Documented
 ---
 
 ## Cluster Info
+
+![kubectl get nodes -o wide — 3 nodes Ready](images/stage2-cluster-nodes.png)
 
 - k3s version: `v1.35.5+k3s1`
 - Nodes: `k3d-vault-cluster-server-0` (control-plane), `k3d-vault-cluster-agent-0`, `k3d-vault-cluster-agent-1`
