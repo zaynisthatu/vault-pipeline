@@ -197,6 +197,8 @@ Used to inject the database and media for demo/verification purposes. Documented
 
 **Documenting the Flannel gap instead of silently switching CNIs:** Swapping to Calico would have made the NetworkPolicy "work" but would hide a decision worth understanding — k3d's default networking stack doesn't enforce policy, full stop. That gap, and why it disappears on a managed cloud cluster, is more useful documented than quietly patched over.
 
+**Building the image on the VM, not the PC:** the Windows PC has no Docker/WSL installed — it's used purely for source editing and `git push`. All `docker build`/`docker push` steps run on the Linux VM after a `git pull`, which is also where `kubectl` and the cluster live.
+
 ---
 
 ## Local vs Production Equivalents
