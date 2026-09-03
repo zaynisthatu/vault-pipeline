@@ -68,11 +68,15 @@ fatal: could not set 'core.filemode' to 'false'
 
 ### Challenge 3 — Readiness probe crash loop
 
+![Readiness probe crash loop — before/after fix](images/stage2-probe-crash-loop-infographic.svg)
+
 ```
 NAME                          READY   STATUS             RESTARTS   AGE
 vault-6b9585f4dc-m5nlz        0/1     CrashLoopBackOff   17         53m
 vault-6b9585f4dc-zjgrv        0/1     CrashLoopBackOff   17         53m
 ```
+
+![kubectl get pods -w showing CrashLoopBackOff, live](images/stage2-crashloopbackoff-live.png)
 
 ```mermaid
 flowchart LR
@@ -102,7 +106,11 @@ readinessProbe:
 
 `/healthz` makes no database call — it answers "is the process up," not "is the database populated." Also added `RUN touch /app/vault.db` in the Dockerfile so a cold start never hits a missing file.
 
+![The actual server.ts and deployment.yaml diff](images/stage2-code-fix.png)
+
 **A subtlety that cost an extra round-trip:** shipping the `/healthz` code, rebuilding, and pushing the image did **not** fix the crash loop on the first attempt — pods kept restarting even though `kubectl logs` showed `Server running → http://localhost:7860` (the app itself was healthy). The cause: `k8s/deployment.yaml`'s `readinessProbe`/`livenessProbe` paths were still pointed at `/api/stats`. The application-level fix and the manifest-level fix are two independent changes — updating `server.ts` alone doesn't change what Kubernetes checks. Both had to be committed before pods went `1/1 Running`.
+
+![Healthy after both fixes — pods Running, /healthz returning 200](images/stage2-healthy-after-fix.png)
 
 ---
 

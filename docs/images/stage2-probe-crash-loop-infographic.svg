@@ -1,0 +1,107 @@
+<svg viewBox="0 0 800 700" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arrowGray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/></marker>
+  <marker id="arrowRedM" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#dc2626"/></marker>
+  <marker id="arrowGreenM" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#16a34a"/></marker>
+
+  <symbol id="icon-play" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><path d="M10 8 L16 12 L10 16 Z" fill="#fff" stroke="none"/>
+  </symbol>
+  <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/>
+  </symbol>
+  <symbol id="icon-warning" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3 L22 20 H2 Z"/><line x1="12" y1="9" x2="12" y2="14"/><circle cx="12" cy="17" r="0.8" fill="#fff" stroke="none"/>
+  </symbol>
+  <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="8" y1="8" x2="16" y2="16"/><line x1="16" y1="8" x2="8" y2="16"/>
+  </symbol>
+  <symbol id="icon-fix" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" y1="7" x2="20" y2="7"/><circle cx="9" cy="7" r="2" fill="#fff" stroke="none"/>
+    <line x1="4" y1="12" x2="20" y2="12"/><circle cx="15" cy="12" r="2" fill="#fff" stroke="none"/>
+    <line x1="4" y1="17" x2="20" y2="17"/><circle cx="7" cy="17" r="2" fill="#fff" stroke="none"/>
+  </symbol>
+  <symbol id="icon-shield2" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2 L20 5 V11 C20 16 16.5 20 12 22 C7.5 20 4 16 4 11 V5 Z"/>
+  </symbol>
+  <symbol id="icon-check2" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/><path d="M7 12.5 L10.5 16 L17 8.5"/>
+  </symbol>
+</defs>
+
+<rect x="0" y="0" width="800" height="700" fill="#ffffff"/>
+
+<!-- HEADER -->
+<rect x="40" y="30" width="54" height="54" rx="12" fill="#1e3a8a"/>
+<use href="#icon-search" x="50" y="40" width="34" height="34"/>
+<text x="110" y="55" font-size="22" font-weight="700" fill="#0f172a">READINESS PROBE</text>
+<text x="110" y="82" font-size="22" font-weight="700" fill="#dc2626">CRASH LOOP</text>
+<line x1="40" y1="105" x2="760" y2="105" stroke="#2563eb" stroke-width="3"/>
+
+<!-- Column headers -->
+<rect x="40" y="130" width="330" height="34" rx="8" fill="#fee2e2"/>
+<text x="205" y="153" text-anchor="middle" font-size="14" font-weight="700" fill="#991b1b">BEFORE — BROKEN</text>
+<rect x="430" y="130" width="330" height="34" rx="8" fill="#dcfce7"/>
+<text x="595" y="153" text-anchor="middle" font-size="14" font-weight="700" fill="#15803d">AFTER — FIXED</text>
+
+<line x1="400" y1="130" x2="400" y2="640" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="6,4"/>
+
+<!-- LEFT: box1 -->
+<rect x="40" y="185" width="330" height="60" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="55" y="195" width="40" height="40" rx="9" fill="#64748b"/><use href="#icon-play" x="62" y="202" width="26" height="26"/>
+<text x="110" y="220" font-size="14.5" font-weight="700" fill="#1e293b">POD STARTS</text>
+
+<line x1="205" y1="245" x2="205" y2="270" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+<!-- LEFT: box2 -->
+<rect x="40" y="272" width="330" height="60" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.5"/>
+<rect x="55" y="282" width="40" height="40" rx="9" fill="#64748b"/><use href="#icon-search" x="62" y="289" width="26" height="26"/>
+<text x="110" y="307" font-size="14.5" font-weight="700" fill="#1e293b">PROBE: /api/stats</text>
+
+<line x1="205" y1="332" x2="205" y2="357" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+<text x="220" y="349" font-size="11" font-style="italic" fill="#475569">queries SQLite</text>
+
+<!-- LEFT: box3 -->
+<rect x="40" y="359" width="330" height="60" rx="10" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<rect x="55" y="369" width="40" height="40" rx="9" fill="#dc2626"/><use href="#icon-warning" x="62" y="376" width="26" height="26"/>
+<text x="110" y="394" font-size="14.5" font-weight="700" fill="#991b1b">NO DB ON STARTUP</text>
+
+<line x1="205" y1="419" x2="205" y2="444" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowRedM)"/>
+<text x="220" y="436" font-size="11" font-style="italic" fill="#b91c1c">503</text>
+
+<!-- LEFT: box4 (emphasized) -->
+<rect x="40" y="446" width="330" height="70" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+<rect x="58" y="458" width="46" height="46" rx="10" fill="#dc2626"/><use href="#icon-x" x="66" y="466" width="30" height="30"/>
+<text x="116" y="487" font-size="16" font-weight="700" fill="#7f1d1d">CRASHLOOPBACKOFF</text>
+
+<!-- RIGHT: box1 -->
+<rect x="430" y="185" width="330" height="60" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="445" y="195" width="40" height="40" rx="9" fill="#2563eb"/><use href="#icon-fix" x="452" y="202" width="26" height="26"/>
+<text x="500" y="220" font-size="14.5" font-weight="700" fill="#1e3a8a">FIX: DEDICATED /healthz</text>
+
+<line x1="595" y1="245" x2="595" y2="270" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowGray)"/>
+
+<!-- RIGHT: box2 -->
+<rect x="430" y="272" width="330" height="60" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="445" y="282" width="40" height="40" rx="9" fill="#2563eb"/><use href="#icon-shield2" x="452" y="289" width="26" height="26"/>
+<text x="500" y="307" font-size="14.5" font-weight="700" fill="#1e3a8a">INDEPENDENT OF DB</text>
+
+<line x1="595" y1="332" x2="595" y2="357" stroke="#16a34a" stroke-width="2" marker-end="url(#arrowGreenM)"/>
+<text x="610" y="349" font-size="11" font-style="italic" fill="#15803d">200</text>
+
+<!-- RIGHT: box3 (emphasized) -->
+<rect x="430" y="359" width="330" height="70" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+<rect x="448" y="371" width="46" height="46" rx="10" fill="#16a34a"/><use href="#icon-check2" x="456" y="379" width="30" height="30"/>
+<text x="506" y="400" font-size="16" font-weight="700" fill="#14532d">ALWAYS READY</text>
+
+<!-- FIX APPLIED chevron -->
+<polygon points="345,300 385,300 385,280 415,315 385,350 385,330 345,330" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+<text x="380" y="345" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">FIX APPLIED</text>
+
+<!-- Bottom takeaway -->
+<rect x="40" y="545" width="720" height="110" rx="12" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="60" y="575" font-size="13" font-weight="700" letter-spacing="1" fill="#334155">WHY IT MATTERS</text>
+<text x="60" y="600" font-size="12.5" fill="#475569">The old probe queried SQLite for a post count — on a fresh pod, that query fails</text>
+<text x="60" y="618" font-size="12.5" fill="#475569">before vault.db exists, so Kubernetes kills and restarts the pod forever.</text>
+<text x="60" y="640" font-size="12.5" fill="#475569">The new probe only answers "is the process up" — completely independent of data.</text>
+</svg>
