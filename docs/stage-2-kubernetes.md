@@ -149,6 +149,8 @@ Production equivalent: Route53 / Cloud DNS pointing at the load balancer — the
 
 ### Challenge 6 — NetworkPolicy accepted but not enforced
 
+![NetworkPolicy accepted but not enforced under Flannel](images/stage2-networkpolicy-infographic.svg)
+
 ```mermaid
 flowchart TD
     A[NetworkPolicy applied\ndefault-deny + allow Traefik] --> B[kube-apiserver\naccepts manifest]
@@ -156,6 +158,8 @@ flowchart TD
     C -->|Flannel| D[❌ Policy stored,\nnot enforced\nall traffic still flows]
     C -->|Calico / Cilium| E[✅ Policy enforced\nat the network layer]
 ```
+
+![kubectl get networkpolicy — resource present, not enforced under Flannel](images/stage2-networkpolicy-get.png)
 
 `kubectl apply` succeeded, `kubectl get networkpolicy` showed the resource as present. But k3d's default CNI is Flannel, which has no NetworkPolicy controller — the API server stores the object, no component reads or enforces it.
 
