@@ -232,6 +232,7 @@ Used to inject the database and media for demo/verification purposes. Documented
 ## Known Gaps (carried forward, not hidden)
 
 - NetworkPolicy is written correctly but not enforced under Flannel — needs a CNI swap, tracked for the cloud-migration stage.
-- `vault.db` is not durable across pod restarts — needs a PersistentVolumeClaim, tracked for a dedicated storage stage.
+- `vault.db` and `hf-data` are not durable across pod restarts — needs a PersistentVolumeClaim, tracked for a dedicated storage stage.
+- The VM this stage was built on is ephemeral (destroyed each session) — a bootstrap/reprovisioning approach was scoped but not verified end-to-end, so it isn't claimed as done here.
 
-Both are documented here rather than worked around, so the pipeline's actual state stays accurate at every stage.
+Documented here rather than worked around, so the pipeline's actual state stays accurate at every stage.
