@@ -31,7 +31,7 @@ flowchart TD
     GHCR[GHCR — private image] -->|imagePullSecret| P1 & P2
 ```
 
-> Same topology shape as an EKS/GKE managed control plane — this becomes a direct migration target, not a rewrite, when Stage 6 moves to real cloud infrastructure.
+> Same topology shape as an EKS/GKE managed control plane — this becomes a direct migration target, not a rewrite, when a later stage moves to real cloud infrastructure.
 
 ---
 
