@@ -84,7 +84,7 @@ flowchart LR
 
 The readiness probe was pointed at `/api/stats`, an existing endpoint that queries SQLite for a post count. On a fresh pod, `vault.db` doesn't exist yet — the query throws, the endpoint returns 503, the probe fails, Kubernetes kills the pod and restarts it. New pod, same missing db, same 503, indefinitely.
 
-**Resolution:**
+**Resolution — two separate changes, both required:**
 ```ts
 // server.ts
 app.get('/healthz', (req, res) => {
@@ -97,7 +97,10 @@ readinessProbe:
     path: /healthz
     port: 7860
 ```
+
 `/healthz` makes no database call — it answers "is the process up," not "is the database populated." Also added `RUN touch /app/vault.db` in the Dockerfile so a cold start never hits a missing file.
+
+**A subtlety that cost an extra round-trip:** shipping the `/healthz` code, rebuilding, and pushing the image did **not** fix the crash loop on the first attempt — pods kept restarting even though `kubectl logs` showed `Server running → http://localhost:7860` (the app itself was healthy). The cause: `k8s/deployment.yaml`'s `readinessProbe`/`livenessProbe` paths were still pointed at `/api/stats`. The application-level fix and the manifest-level fix are two independent changes — updating `server.ts` alone doesn't change what Kubernetes checks. Both had to be committed before pods went `1/1 Running`.
 
 ---
 
