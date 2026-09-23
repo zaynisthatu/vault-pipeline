@@ -20,6 +20,7 @@ A full-stack social media archive viewer containerized and deployed through a pr
 - ✅ 3-node k3d Kubernetes cluster — 2 replicas behind a Traefik Ingress at `vault.local`
 - ✅ Health checks decoupled from application state — dedicated `/healthz` probe, no CrashLoopBackOff
 - ✅ NetworkPolicy and PodDisruptionBudget (`minAvailable: 1`) applied
+- ✅ GitOps with ArgoCD — declarative sync, drift auto-reverted by self-heal, RBAC-gated access
 - ✅ Runtime-validated — video streaming, thumbnails, and post search live under load
 
 ---
