@@ -149,6 +149,9 @@ flowchart TD
 
 - **NetworkPolicy is written correctly but not enforced under Flannel** (k3d's default CNI) — needs a CNI swap to Calico/Cilium, tracked for the cloud-migration stage.
 - **`vault.db` is not durable across pod restarts** — currently injected via `kubectl cp` for demo/verification; needs a PersistentVolumeClaim, tracked for a dedicated storage stage.
+- **ArgoCD RBAC was loaded, not exercised** — the policy maps a `zain` user to `role:developer`, but no such account was created in this stage; only the built-in `admin` was used to log in.
+- **ArgoCD repo credentials are a plain Kubernetes Secret** (base64, not encrypted) in the `argocd` namespace — Sealed Secrets is the planned replacement in a later stage.
+- **Drift detection was exercised once**, on one Deployment, on one cluster — multi-cluster/multi-environment behavior is untested.
 
 Documented here rather than worked around, so the pipeline's actual state stays accurate at every stage.
 
