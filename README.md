@@ -126,7 +126,7 @@ flowchart TD
 | **1 — Containerization** | Multi-stage Docker build · GHCR push · stateless architecture | ✅ Complete |
 | **2 — Kubernetes** | 3-node k3d cluster · Traefik Ingress · NetworkPolicy · PodDisruptionBudget | ✅ Complete |
 | 3 — GitOps | ArgoCD · declarative sync · auto-deploy on git push | ✅ |
-| 4 — Reliability | Rolling updates · rollback · zero-downtime deploy | ⏳ |
+| 4 — Reliability | Rolling updates · SIGTERM graceful shutdown · zero-downtime deploy | ✅ Complete |
 | 5 — Observability | Prometheus · Grafana · Loki | ⏳ |
 | 6 — Alerting | Slack webhook · alert rules | ⏳ |
 | 7 — Storage | LocalStack S3 · media backend abstraction | ⏳ |
