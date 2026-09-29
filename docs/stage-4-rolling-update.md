@@ -133,18 +133,46 @@ Documented here rather than implied as solved, so the pipeline's actual state st
 
 ## Evidence — Screenshots
 
-| # | Screenshot | What it shows |
-|---|---|---|
-| 1 | `01-argocd-deployment-prep-synced.png` | ArgoCD — deployment prep, synced before rollout |
-| 2 | `02-argocd-before-v2-rollout.png` | ArgoCD state immediately before the v2 rollout |
-| 3 | `03-terminal-pods-before-rollout.png` | `kubectl get pods -w` — baseline, 2/2 pods Running |
-| 4 | `04-terminal-rollout-test-sh-started.png` | `rollout-test.sh` launched — continuous `/healthz` probe begins |
-| 5 | `05-argocd-progressing-during-rollout.png` | ArgoCD — rollout in progress (3 pods briefly: 2 old + 1 new) |
-| 6 | `06-terminal-old-pods-error-status-unfixed-image.png` | Old pods terminating with `STATUS: Error` — the pre-fix (no SIGTERM handler) behavior |
-| 7 | `07-argocd-healthy-synced-after-v2-rollout.png` | ArgoCD — Healthy/Synced after v2 rollout completes |
-| 8 | `08-terminal-pdb-describe-allowed-disruptions.png` | `kubectl describe pdb vault-pdb` — `Allowed disruptions: 1`, never breached |
-| 9 | `09-terminal-pods-graceful-shutdown-completed-status.png` | Post-fix rollout — old pods terminate with `STATUS: Completed` (exit 0), not `Error` |
-| 10 | `10-argocd-healthy-after-graceful-shutdown-rollout.png` | ArgoCD — Healthy/Synced after the graceful-shutdown-fixed rollout |
-| 11 | `11-browser-vault-app-v2-stage4-badge-live.png` | Live browser view — `v2 · Stage 4` badge visible in the running app |
+**1. ArgoCD — deployment prep, synced before rollout**
 
-All screenshots in `docs/images/stage-4/` have terminal hostname/path prompts redacted (blacked out) before publishing; commands and output are untouched.
+![Stage 4 evidence 1](images/stage-4/01-argocd-deployment-prep-synced.png)
+
+**2. ArgoCD state immediately before the v2 rollout**
+
+![Stage 4 evidence 2](images/stage-4/02-argocd-before-v2-rollout.png)
+
+**3. `kubectl get pods -w` — baseline, 2/2 pods Running**
+
+![Stage 4 evidence 3](images/stage-4/03-terminal-pods-before-rollout.png)
+
+**4. `rollout-test.sh` launched — continuous `/healthz` probe begins**
+
+![Stage 4 evidence 4](images/stage-4/04-terminal-rollout-test-sh-started.png)
+
+**5. ArgoCD — rollout in progress (3 pods briefly: 2 old + 1 new)**
+
+![Stage 4 evidence 5](images/stage-4/05-argocd-progressing-during-rollout.png)
+
+**6. Old pods terminating with `STATUS: Error` — the pre-fix (no SIGTERM handler) behavior**
+
+![Stage 4 evidence 6](images/stage-4/06-terminal-old-pods-error-status-unfixed-image.png)
+
+**7. ArgoCD — Healthy/Synced after v2 rollout completes**
+
+![Stage 4 evidence 7](images/stage-4/07-argocd-healthy-synced-after-v2-rollout.png)
+
+**8. `kubectl describe pdb vault-pdb` — `Allowed disruptions: 1`, never breached**
+
+![Stage 4 evidence 8](images/stage-4/08-terminal-pdb-describe-allowed-disruptions.png)
+
+**9. Post-fix rollout — old pods terminate with `STATUS: Completed` (exit 0), not `Error`**
+
+![Stage 4 evidence 9](images/stage-4/09-terminal-pods-graceful-shutdown-completed-status.png)
+
+**10. ArgoCD — Healthy/Synced after the graceful-shutdown-fixed rollout**
+
+![Stage 4 evidence 10](images/stage-4/10-argocd-healthy-after-graceful-shutdown-rollout.png)
+
+**11. Live browser view — `v2 · Stage 4` badge visible in the running app**
+
+![Stage 4 evidence 11](images/stage-4/11-browser-vault-app-v2-stage4-badge-live.png)
