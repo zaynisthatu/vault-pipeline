@@ -154,6 +154,8 @@ flowchart TD
 - **ArgoCD RBAC was loaded, not exercised** — the policy maps a `zain` user to `role:developer`, but no such account was created in this stage; only the built-in `admin` was used to log in.
 - **ArgoCD repo credentials are a plain Kubernetes Secret** (base64, not encrypted) in the `argocd` namespace — Sealed Secrets is the planned replacement in a later stage.
 - **Drift detection was exercised once**, on one Deployment, on one cluster — multi-cluster/multi-environment behavior is untested.
+- **Rollback (`kubectl rollout undo`) was never exercised** — no rollout in Stage 4 went wrong enough to need it, so only the rolling-update path is proven, not rollback.
+- **Zero-downtime verification is a manual curl loop** (`rollout-test.sh`), run once per rollout — automated regression checking is deferred to the CI/CD stage.
 
 Documented here rather than worked around, so the pipeline's actual state stays accurate at every stage.
 
