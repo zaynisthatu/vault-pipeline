@@ -143,6 +143,7 @@ flowchart TD
 - [Stage 1 — Containerization](docs/stage-1-containerization.md)
 - [Stage 2 — Kubernetes Orchestration](docs/stage-2-kubernetes.md)
 - [Stage 3 — GitOps with ArgoCD](docs/stage-3-gitops.md)
+- [Stage 4 — Zero-Downtime Rolling Update](docs/stage-4-rolling-update.md)
 
 ---
 
