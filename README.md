@@ -128,7 +128,7 @@ flowchart TD
 | **2 — Kubernetes** | 3-node k3d cluster · Traefik Ingress · NetworkPolicy · PodDisruptionBudget | ✅ Complete |
 | 3 — GitOps | ArgoCD · declarative sync · auto-deploy on git push | ✅ |
 | 4 — Reliability | Rolling updates · SIGTERM graceful shutdown · zero-downtime deploy | ✅ Complete |
-| 5 — Observability | Prometheus · Grafana · Loki | ⏳ |
+| 5 — Observability | Prometheus · Grafana · Loki | 🔄 In Progress |
 | 6 — Alerting | Slack webhook · alert rules | ⏳ |
 | 7 — Storage | LocalStack S3 · media backend abstraction | ⏳ |
 | 8 — Config Mgmt | Ansible · automated environment setup | ⏳ |
