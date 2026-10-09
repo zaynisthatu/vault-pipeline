@@ -158,6 +158,7 @@ flowchart TD
 - **Drift detection was exercised once**, on one Deployment, on one cluster — multi-cluster/multi-environment behavior is untested.
 - **Rollback (`kubectl rollout undo`) was never exercised** — no rollout in Stage 4 went wrong enough to need it, so only the rolling-update path is proven, not rollback.
 - **Zero-downtime verification is a manual curl loop** (`rollout-test.sh`), run once per rollout — automated regression checking is deferred to the CI/CD stage.
+- **Stage 5 is in progress** — Loki log delivery is not yet verified end-to-end (Explore query pending), and the raised Prometheus memory limit (1Gi) has not been applied and re-verified.
 
 Documented here rather than worked around, so the pipeline's actual state stays accurate at every stage.
 
