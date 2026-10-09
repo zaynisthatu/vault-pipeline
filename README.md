@@ -22,6 +22,7 @@ A full-stack social media archive viewer containerized and deployed through a pr
 - ✅ NetworkPolicy and PodDisruptionBudget (`minAvailable: 1`) applied
 - ✅ GitOps with ArgoCD — declarative sync, drift auto-reverted by self-heal, RBAC-gated access
 - ✅ Zero-downtime rolling updates — SIGTERM graceful shutdown, `maxUnavailable: 0`, preStop drain; 2,958 probe requests across two rollouts, 0 non-200
+- ✅ Observability via GitOps — kube-prometheus-stack and loki-stack deployed as ArgoCD Applications; ServiceMonitor scrapes both VAULT pods (2/2 targets up) and `VaultHighErrorRate` / `VaultPodDown` alert rules loaded
 - ✅ Runtime-validated — video streaming, thumbnails, and post search live under load
 
 ---
