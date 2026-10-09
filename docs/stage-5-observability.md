@@ -94,8 +94,7 @@ no manual `kubectl apply`).
 
 ## Evidence — Screenshots
 
-All screenshots below have terminal hostname/path prompts redacted (blacked out);
-commands and output are untouched. Organized by the step they support.
+Organized by the step they support.
 
 | Folder | Screenshot | What it shows |
 |---|---|---|
@@ -117,3 +116,76 @@ commands and output are untouched. Organized by the step they support.
 | 08_troubleshooting_evidence | 01–04 | Real sync failures encountered along the way (kept, not hidden) |
 | 09_grafana_loki_query_incomplete | 01_..._UNRESOLVED.png | **The unresolved Loki Explore parse error — Step 7, still open** |
 
+### Screenshots
+
+#### 01_prometheus_metrics_endpoint
+
+![01_prometheus_metrics_endpoint / 01_docker_build_v3.png](images/stage-5/01_prometheus_metrics_endpoint/01_docker_build_v3.png)
+
+![01_prometheus_metrics_endpoint / 02_docker_push_v3.png](images/stage-5/01_prometheus_metrics_endpoint/02_docker_push_v3.png)
+
+![01_prometheus_metrics_endpoint / 03_v3_argocd_rollout.png](images/stage-5/01_prometheus_metrics_endpoint/03_v3_argocd_rollout.png)
+
+#### 02_structured_logging_v5_rollout
+
+![02_structured_logging_v5_rollout / 01_v4_rollout_argocd.png](images/stage-5/02_structured_logging_v5_rollout/01_v4_rollout_argocd.png)
+
+![02_structured_logging_v5_rollout / 02_v5_rollout_argocd.png](images/stage-5/02_structured_logging_v5_rollout/02_v5_rollout_argocd.png)
+
+![02_structured_logging_v5_rollout / 03_git_pull_vm.png](images/stage-5/02_structured_logging_v5_rollout/03_git_pull_vm.png)
+
+![02_structured_logging_v5_rollout / 04_pods_rollout.png](images/stage-5/02_structured_logging_v5_rollout/04_pods_rollout.png)
+
+![02_structured_logging_v5_rollout / 05_requests_capture_metrics.png](images/stage-5/02_structured_logging_v5_rollout/05_requests_capture_metrics.png)
+
+#### 04_loki_promtail_install
+
+![04_loki_promtail_install / 01_kubectl_get_pods_monitoring_oomkilled_3_restarts.png](images/stage-5/04_loki_promtail_install/01_kubectl_get_pods_monitoring_oomkilled_3_restarts.png)
+
+![04_loki_promtail_install / 02_kubectl_get_pods_monitoring_early_snapshot_0restarts_pre_crashloop.png](images/stage-5/04_loki_promtail_install/02_kubectl_get_pods_monitoring_early_snapshot_0restarts_pre_crashloop.png)
+
+#### 05_servicemonitor_verification
+
+![05_servicemonitor_verification / 01_argocd_kube_prometheus_stack_sync_failed.png](images/stage-5/05_servicemonitor_verification/01_argocd_kube_prometheus_stack_sync_failed.png)
+
+![05_servicemonitor_verification / 02_targets_0of2_up_before_networkpolicy_fix.png](images/stage-5/05_servicemonitor_verification/02_targets_0of2_up_before_networkpolicy_fix.png)
+
+![05_servicemonitor_verification / 03_targets_page_state.png](images/stage-5/05_servicemonitor_verification/03_targets_page_state.png)
+
+![05_servicemonitor_verification / 04_targets_page_state.png](images/stage-5/05_servicemonitor_verification/04_targets_page_state.png)
+
+![05_servicemonitor_verification / 05_targets_2of2_up_after_networkpolicy_fix.png](images/stage-5/05_servicemonitor_verification/05_targets_2of2_up_after_networkpolicy_fix.png)
+
+![05_servicemonitor_verification / 06_full_targets_page_all_scrape_pools.png](images/stage-5/05_servicemonitor_verification/06_full_targets_page_all_scrape_pools.png)
+
+#### 06_prometheusrule_alerts
+
+![06_prometheusrule_alerts / 01_prometheus_alerts_page_vaulthighrror_vaultpoddown_loaded.png](images/stage-5/06_prometheusrule_alerts/01_prometheus_alerts_page_vaulthighrror_vaultpoddown_loaded.png)
+
+![06_prometheusrule_alerts / 02_alertmanager_servicemonitor_targets_up.png](images/stage-5/06_prometheusrule_alerts/02_alertmanager_servicemonitor_targets_up.png)
+
+#### 07_argocd_sync_states
+
+![07_argocd_sync_states / 01_kube-prometheus-stack_progressing_syncing.jpg](images/stage-5/07_argocd_sync_states/01_kube-prometheus-stack_progressing_syncing.jpg)
+
+![07_argocd_sync_states / 02_all_4_apps_kube-prometheus-stack_still_syncing.png](images/stage-5/07_argocd_sync_states/02_all_4_apps_kube-prometheus-stack_still_syncing.png)
+
+![07_argocd_sync_states / 03_all_4_apps_healthy_synced.png](images/stage-5/07_argocd_sync_states/03_all_4_apps_healthy_synced.png)
+
+![07_argocd_sync_states / 04_all_4_apps_state.png](images/stage-5/07_argocd_sync_states/04_all_4_apps_state.png)
+
+![07_argocd_sync_states / 05_all_4_apps_state.png](images/stage-5/07_argocd_sync_states/05_all_4_apps_state.png)
+
+#### 08_troubleshooting_evidence
+
+![08_troubleshooting_evidence / 01_kube-prometheus-stack_sync_failed_1error.png](images/stage-5/08_troubleshooting_evidence/01_kube-prometheus-stack_sync_failed_1error.png)
+
+![08_troubleshooting_evidence / 02_port_forward_argocd_ui.png](images/stage-5/08_troubleshooting_evidence/02_port_forward_argocd_ui.png)
+
+![08_troubleshooting_evidence / 03_argocd_apps_tiles_view.png](images/stage-5/08_troubleshooting_evidence/03_argocd_apps_tiles_view.png)
+
+![08_troubleshooting_evidence / 04_argocd_apps_error_state.png](images/stage-5/08_troubleshooting_evidence/04_argocd_apps_error_state.png)
+
+#### 09_grafana_loki_query_incomplete
+
+![09_grafana_loki_query_incomplete / 01_loki_explore_parse_error_UNRESOLVED.png](images/stage-5/09_grafana_loki_query_incomplete/01_loki_explore_parse_error_UNRESOLVED.png)
